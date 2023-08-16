@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
 import { fetchCharacters } from "../utils/api";
+import { Header } from "../components/header";
 
 const Home: NextPage = () => {
   return (
@@ -11,10 +12,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/" />
       </Head>
 
-      <h1 className='text-center text-3xl text-blue-500' > Welcome </h1>
+      <Header />
 
+      
     </div>
-  )
+  );
 }
 
 export const getServerSideProps = async () => {
