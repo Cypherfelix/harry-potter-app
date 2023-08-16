@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import Head from 'next/head'
+import { fetchCharacters } from "../utils/api";
 
 const Home: NextPage = () => {
   return (
@@ -15,5 +16,14 @@ const Home: NextPage = () => {
     </div>
   )
 }
+
+export const getServerSideProps = async () => {
+  const characters = await fetchCharacters();
+  console.log(characters);
+  return {
+    props: { characters },
+  };
+};
+
 
 export default Home
