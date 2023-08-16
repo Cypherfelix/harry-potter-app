@@ -32,13 +32,13 @@ const SearchBar: React.FC = () => {
       <span className="absolute top-3 right-3 text-gray-400">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          className="h-5 w-5 fill-current"
-          viewBox="0 0 20 20"
+          viewBox="0 0 24 24"
           fill="currentColor"
+          className="w-6 h-6"
         >
           <path
             fillRule="evenodd"
-            d="M9 2a7 7 0 100 14A7 7 0 009 2zM7 9a2 2 0 114 0 2 2 0 01-4 0z"
+            d="M10.5 3.75a6.75 6.75 0 100 13.5 6.75 6.75 0 000-13.5zM2.25 10.5a8.25 8.25 0 1114.59 5.28l4.69 4.69a.75.75 0 11-1.06 1.06l-4.69-4.69A8.25 8.25 0 012.25 10.5z"
             clipRule="evenodd"
           />
         </svg>
@@ -49,26 +49,22 @@ const SearchBar: React.FC = () => {
 
 const NavLinks: React.FC = () => {
   return (
-    <nav className="hidden md:flex space-x-4">
-      {/* Example links. Uppercase + underline on hover for emphasis */}
-      <a
-        href="#"
-        className="uppercase hover:text-yellow-400 hover:underline transition duration-300"
-      >
-        Houses
-      </a>
-      <a
-        href="#"
-        className="uppercase hover:text-yellow-400 hover:underline transition duration-300"
-      >
-        Spells
-      </a>
-      <a
-        href="#"
-        className="uppercase hover:text-yellow-400 hover:underline transition duration-300"
-      >
-        About
-      </a>
+    <nav className="hidden md:flex space-x-6">
+      <NavLink href="#" text="Houses" />
+      <NavLink href="#" text="Spells" />
+      <NavLink href="#" text="About" />
     </nav>
   );
 };
+
+const NavLink: React.FC<{ href: string; text: string }> = ({ href, text }) => {
+  return (
+    <Link
+      href={href}
+      className="uppercase text-yellow-400 hover:text-yellow-500 font-serif tracking-wider relative transition duration-300 before:content-[''] before:absolute before:w-0 before:h-1 before:bg-yellow-400 before:bottom-0 before:left-0 before:transition-width before:duration-300 hover:before:w-full"
+    >
+      {text}
+    </Link>
+  );
+};
+
