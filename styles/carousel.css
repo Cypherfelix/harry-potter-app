@@ -173,7 +173,8 @@
     transition: opacity 0.35s ease-in-out;
 }
 
-.image-overlay:hover {
+.image-overlay:hover,
+.gallery-item.hovered .image-overlay {
     opacity: 1;
 }
 
@@ -182,7 +183,8 @@
     transition: transform 0.25s;
 }
 
-.image-overlay:hover>* {
+.image-overlay:hover>*,
+.gallery-item.hovered .image-overlay>* {
     transform: translateY(0);
 }
 
