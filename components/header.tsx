@@ -40,7 +40,9 @@ export const Header: React.FC = () => {
       </div>
 
       <div
-        className={`absolute bg-slate-800 w-60 right-0 flex flex-col p-6 pb-8 px-4 top-16 space-y-3 rounded-b-lg border-b border-b-gray-700 hover:bg-gray-800 lg:p-3 lg:pb-4 lg:border-none lg:flex-row lg:relative lg:w-1/2 cs:w-3/4 lg:top-0 lg:justify-center lg:space-x-6`}
+        className={`${
+          !opened && "hidden"
+        } absolute bg-slate-800 w-60 right-0 flex flex-col p-6 pb-8 px-4 top-16 space-y-3 rounded-b-lg border-b border-b-gray-700 hover:bg-gray-800 lg:flex lg:p-3 lg:pb-4 lg:border-none lg:flex-row lg:relative lg:w-8/12 cs:w-3/4 lg:top-0 lg:justify-center lg:space-x-6`}
       >
         <SearchBar show={true} className="" />
         <NavLinks />
@@ -82,7 +84,7 @@ const SearchBar: React.FC<{
   className?: string | undefined;
 }> = ({ show, className }) => {
   return show ? (
-    <form className="flex items-center lg:w-1/2">
+    <form className="flex items-center lg:w-1/2 lg:mr-10">
       <div className="relative w-full">
         <input
           type="text"
@@ -105,9 +107,9 @@ const SearchBar: React.FC<{
         >
           <path
             stroke="currentColor"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth="2"
             d="m19 19-4-4m0-7A7 7 0 1 1 1 8a7 7 0 0 1 14 0Z"
           />
         </svg>
