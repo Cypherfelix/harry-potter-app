@@ -59,5 +59,4 @@ export const Header: React.FC<Props> = ({ setToggleSearch, toggleSearch }) => {
   );
 };
 
-export { HeaderSearch };
-
+export default Header;

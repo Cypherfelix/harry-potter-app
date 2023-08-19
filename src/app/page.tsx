@@ -3,9 +3,11 @@ import Carousel from "@/components/carousel";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
 import SearchModal from "@/components/searchModal";
-import { useState } from "react";
+import { Character } from "@/types/character";
+import { fetchCharacters } from "@/utils/api";
+import { useEffect, useState } from "react";
 
-export default function Home() {
+export default function Home({}) {
   const dummyCharacters = [
     {
       id: "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
@@ -119,7 +121,15 @@ export default function Home() {
     },
   ];
 
+  const [characters, setCharacters] = useState<Character[]>([]);
+
   const [toggleSearch, setToggleSearch] = useState(false);
+
+  useEffect(() => {
+    fetchCharacters().then((r) => {
+      setCharacters(r);
+    });
+  }, []);
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0">
