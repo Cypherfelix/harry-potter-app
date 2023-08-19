@@ -150,21 +150,34 @@ export default function Home({}) {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-0">
-      <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
+      <div
+        className="min-h-screen h-full w-full flex flex-col bg-fixed "
+        style={{
+          backgroundImage: `url('images/bg2.jpg')`,
+          objectFit: "cover",
+          backgroundPosition: "center",
+          backgroundSize: "cover",
+        }}
+      >
+        <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
 
-      <Carousel items={dummyCharacters.slice(0, 5)} />
+        <div className="flex flex-col items-center justify-center flex-1">
+          <div className="flex flex-col items-center justify-center flex-1"></div>
+        </div>
 
-      <Footer />
+        <Footer />
 
-      {toggleSearch && (
-        <SearchModal
-          setToggleSearch={setToggleSearch}
-          filteredCharacters={filteredCharacters}
-          handleSearch={handleSearch}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
-      )}
+        {toggleSearch && (
+          <SearchModal
+            setToggleSearch={setToggleSearch}
+            filteredCharacters={filteredCharacters}
+            handleSearch={handleSearch}
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+          />
+        )}
+      </div>
+      {/* <Carousel items={dummyCharacters.slice(0, 5)} /> */}
     </main>
   );
 }
