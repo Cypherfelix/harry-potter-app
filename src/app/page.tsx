@@ -5,7 +5,7 @@ import { Header } from "@/components/header";
 import SearchModal from "@/components/searchModal";
 import { Character } from "@/types/character";
 import { fetchCharacters } from "@/utils/api";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Home({}) {
   const dummyCharacters = [
@@ -122,8 +122,25 @@ export default function Home({}) {
   ];
 
   const [characters, setCharacters] = useState<Character[]>([]);
-
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
   const [toggleSearch, setToggleSearch] = useState(false);
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (value.trim() === "") {
+      setFilteredCharacters([]);
+    } else {
+      setFilteredCharacters(
+        characters.filter(
+          (character) =>
+            character.name.toLowerCase().includes(value.toLowerCase()) ||
+            character.house.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    }
+  };
 
   useEffect(() => {
     fetchCharacters().then((r) => {
@@ -139,7 +156,15 @@ export default function Home({}) {
 
       <Footer />
 
-      {toggleSearch && <SearchModal setToggleSearch={setToggleSearch} />}
+      {toggleSearch && (
+        <SearchModal
+          setToggleSearch={setToggleSearch}
+          filteredCharacters={filteredCharacters}
+          handleSearch={handleSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      )}
     </main>
   );
 }

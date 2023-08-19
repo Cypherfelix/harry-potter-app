@@ -1,11 +1,19 @@
 import { useEffect, useRef } from "react";
 import SearchIcon from "./icons/searchIcon";
 import SearchResults from "./search/searchResults";
+import { Character } from "@/types/character";
+import SearchNoResults from "./search/searchNoResult";
+import SearchInfo from "./search/searchInfo";
 
 interface SearchModalProps {
-  setToggleSearch: React.Dispatch<React.SetStateAction<boolean>>;
+  setToggleSearch?: React.Dispatch<React.SetStateAction<boolean>>;
+  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
+  handleSearch?: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  searchTerm?: string;
+  filteredCharacters?: Character[];
+
 }
-const SearchModal: React.FC<SearchModalProps> = ({ setToggleSearch }) => {
+const SearchModal: React.FC<SearchModalProps> = ({ setToggleSearch, filteredCharacters, handleSearch, searchTerm, setSearchTerm }) => {
   const searchContainerRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -14,7 +22,7 @@ const SearchModal: React.FC<SearchModalProps> = ({ setToggleSearch }) => {
         searchContainerRef.current &&
         !searchContainerRef.current.contains(event.target as Node)
       ) {
-        setToggleSearch(false);
+        setToggleSearch!(false);
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
@@ -40,10 +48,23 @@ const SearchModal: React.FC<SearchModalProps> = ({ setToggleSearch }) => {
                   className="flex-auto appearance-none bg-transparent pl-12 dark:text-slate-900 outline-none placeholder:text-slate-400 focus:w-full focus:flex-none text-white sm:text-sm pr-4"
                   placeholder="Find something..."
                   type="search"
+                  value={searchTerm!}
+                  onChange={handleSearch!}
                 />
               </div>
               <div className="border-t border-slate-200 dark:bg-white px-2 py-3 empty:hidden border-slate-400/10 bg-slate-800">
-                <SearchResults />
+                {searchTerm!.length > 0 ? (
+                  filteredCharacters!.length > 0 ? (
+                    <SearchResults
+                      filteredCharacters={filteredCharacters}
+                      searchTerm={searchTerm}
+                    />
+                  ) : (
+                    <SearchNoResults />
+                  )
+                ) : (
+                  <SearchInfo />
+                )}
               </div>
             </form>
           </div>
