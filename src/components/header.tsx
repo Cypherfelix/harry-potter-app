@@ -4,7 +4,7 @@ import { useState } from "react";
 export const Header: React.FC = () => {
   const [opened, setOpened] = useState(false);
   return (
-    <nav className="relative flex items-center flex-wrap bg-slate-800 p-3 lg:space-x-20">
+    <nav className="relative flex items-center flex-wrap bg-slate-800 p-3 lg:space-x-20 w-full">
       <Logo />
 
       <div className="absolute block lg:hidden right-10">
@@ -141,4 +141,3 @@ const NavLink: React.FC<{ href: string; text: string }> = ({ href, text }) => {
     </a>
   );
 };
-
