@@ -1,4 +1,6 @@
 import SearchIcon from "./icons/searchIcon";
+import SearchInfo from "./search/searchInfo";
+import SearchNoResults from "./search/searchNoResult";
 
 const SearchModal: React.FC = () => {
   return (
@@ -18,24 +20,12 @@ const SearchModal: React.FC = () => {
                 />
               </div>
               <div className="border-t border-slate-200 dark:bg-white px-2 py-3 empty:hidden border-slate-400/10 bg-slate-800">
-                <SearchInfo />
+                <SearchNoResults />
               </div>
             </form>
           </div>
         </div>
       </div>
-    </div>
-  );
-};
-
-const SearchInfo: React.FC = () => {
-  return (
-    <div className="bg-transparent px-16 py-20 text-center">
-      <h2 className="font-semibold text-zinc-100">Search for something</h2>
-      <p className="mt-2 text-sm leading-6 text-zinc-400">
-        Search for a character, house, or spell. You can also search for
-        multiple terms by separating them with commas.
-      </p>
     </div>
   );
 };
