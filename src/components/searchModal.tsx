@@ -1,6 +1,4 @@
 import SearchIcon from "./icons/searchIcon";
-import SearchInfo from "./search/searchInfo";
-import SearchNoResults from "./search/searchNoResult";
 import SearchResults from "./search/searchResults";
 
 const SearchModal: React.FC = () => {
