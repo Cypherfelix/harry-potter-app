@@ -1,6 +1,7 @@
 import SearchIcon from "./icons/searchIcon";
 import SearchInfo from "./search/searchInfo";
 import SearchNoResults from "./search/searchNoResult";
+import SearchResults from "./search/searchResults";
 
 const SearchModal: React.FC = () => {
   return (
@@ -20,7 +21,7 @@ const SearchModal: React.FC = () => {
                 />
               </div>
               <div className="border-t border-slate-200 dark:bg-white px-2 py-3 empty:hidden border-slate-400/10 bg-slate-800">
-                <SearchNoResults />
+                <SearchResults />
               </div>
             </form>
           </div>
