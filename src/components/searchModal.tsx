@@ -1,12 +1,36 @@
+import { useEffect, useRef } from "react";
 import SearchIcon from "./icons/searchIcon";
 import SearchResults from "./search/searchResults";
 
-const SearchModal: React.FC = () => {
+interface SearchModalProps {
+  setToggleSearch: React.Dispatch<React.SetStateAction<boolean>>;
+}
+const SearchModal: React.FC<SearchModalProps> = ({ setToggleSearch }) => {
+  const searchContainerRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      if (
+        searchContainerRef.current &&
+        !searchContainerRef.current.contains(event.target as Node)
+      ) {
+        setToggleSearch(false);
+      }
+    };
+    document.addEventListener("mousedown", handleOutsideClick);
+    return () => {
+      document.removeEventListener("mousedown", handleOutsideClick);
+    };
+  }, [setToggleSearch, searchContainerRef]);
+
   return (
     <div className="fixed inset-0 z-50">
       <div className="fixed inset-0 bg-slate-900/50 backdrop-blur"></div>
       <div className="fixed inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-20 md:py-32 lg:px-8 lg:py-[15vh]">
-        <div className="mx-auto transform-gpu overflow-hidden rounded-xl dark:bg-white shadow-xl bg-slate-800 ring-1 ring-slate-700 sm:max-w-xl">
+        <div
+          ref={searchContainerRef}
+          className="mx-auto transform-gpu overflow-hidden rounded-xl dark:bg-white shadow-xl bg-slate-800 ring-1 ring-slate-700 sm:max-w-xl"
+        >
           <div>
             <form>
               <div className="group relative flex h-12">
