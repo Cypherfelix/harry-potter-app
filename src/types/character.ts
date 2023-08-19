@@ -78,6 +78,7 @@ export type House =
   | "Slytherin"
   | "Hufflepuff"
   | "Ravenclaw"
+  | "unknown-house"
   | "";
 
 export type Patronus =
@@ -160,6 +161,9 @@ export class Convert {
           ? (character.image = "/images/no-profile-male.jpg")
           : (character.image = "/images/no-profile-female.jpg")
         : (character.image = character.image);
+      character.house === ""
+        ? (character.house = "unknown-house")
+        : (character.house = character.house);
     });
     return result;
   }

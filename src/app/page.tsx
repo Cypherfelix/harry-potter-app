@@ -1,5 +1,6 @@
 "use client";
 import Carousel from "@/components/carousel";
+import CardList from "@/components/characterList";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
 import SearchModal from "@/components/searchModal";
@@ -161,9 +162,7 @@ export default function Home({}) {
       >
         <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
 
-        <div className="flex flex-col items-center justify-center flex-1">
-          <div className="flex flex-col items-center justify-center flex-1"></div>
-        </div>
+        <CardList characters={Array.from(characters).slice(0, 100)} />
 
         <Footer />
 
