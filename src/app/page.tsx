@@ -2,7 +2,7 @@
 import Carousel from "@/components/carousel";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
-// import { Header } from "@/components/header";
+import SearchModal from "@/components/searchModal";
 
 export default function Home() {
   const dummyCharacters = [
@@ -124,6 +124,8 @@ export default function Home() {
       <Carousel items={dummyCharacters.slice(0, 5)} />
 
       <Footer />
+
+      <SearchModal />
     </main>
   );
 }
