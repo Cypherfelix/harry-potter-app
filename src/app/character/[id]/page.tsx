@@ -6,10 +6,6 @@ import CardTheme from "@/utils/cardTheme";
 import { Metadata } from "next";
 import Image from "next/image";
 
-const metadata: Metadata = {
-  title: "Harry Potter",
-  description: "A Harry Potter cast page built with Next.js and Tailwind CSS.",
-};
 
 const character: Character = {
   id: "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
@@ -41,7 +37,6 @@ export default function Home({}) {
 
   console.log(CardTheme(character.house));
 
-  metadata.title = "Harry";
   return (
     <div
       className="livingImage"
@@ -136,4 +131,3 @@ export default function Home({}) {
   );
 }
 
-export { metadata };
