@@ -30,13 +30,19 @@ export default function Home({}) {
 
   const handleNextPage = () => {
     setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 100,
+      behavior: "smooth",
+    });
     isLoading = true;
   };
 
   const handlePreviousPage = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
-    window.scrollTo(0, 0);
+    window.scrollTo({
+      top: 100,
+      behavior: "smooth",
+    });
     isLoading = true;
   };
 
