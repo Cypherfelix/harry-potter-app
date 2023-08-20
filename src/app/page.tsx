@@ -11,6 +11,7 @@ import { fetchCharacters } from "@/utils/api";
 import { ChangeEvent, useEffect, useState } from "react";
 
 export default function Home({}) {
+  const ITEMS_PER_PAGE = 12;
   const dummyCharacters = [
     {
       id: "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
@@ -129,6 +130,17 @@ export default function Home({}) {
   const [searchTerm, setSearchTerm] = useState("");
   const [toggleSearch, setToggleSearch] = useState(false);
 
+  const [currentPage, setCurrentPage] = useState(1);
+  const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
+
+  const handleNextPage = () => {
+    setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+  };
+
+  const handlePreviousPage = () => {
+    setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
+  };
+
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setSearchTerm(value);
@@ -145,6 +157,15 @@ export default function Home({}) {
     }
   };
 
+  const getCharacters = () => {
+    const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
+    const currentCharacters = Array.from(characters).slice(
+      startIndex,
+      startIndex + ITEMS_PER_PAGE
+    );
+    return currentCharacters;
+  };
+
   useEffect(() => {
     fetchCharacters().then((r) => {
       setCharacters(r);
@@ -153,11 +174,9 @@ export default function Home({}) {
 
   return (
     <main className="mx-0 flex flex-col py-6 px-4 md:m-6 md:px-0 md:pt-0 lg:m-auto lg:min-w-[800px] lg:grow">
-      {/* min-h-screen items-center justify-between p-0 */}
       <div
         className="min-h-screen h-full w-full flex flex-col bg-fixed "
         style={{
-          // backgroundImage: `url('/images/bg2.jpg')`,
           objectFit: "cover",
           backgroundPosition: "center",
           backgroundSize: "cover",
@@ -167,15 +186,15 @@ export default function Home({}) {
 
         <Collection />
 
-        <CardList characters={Array.from(characters).slice(0, 100)} />
+        <CardList characters={getCharacters()} />
 
         <Pagination
-          currentPage={1}
-          isFirst={true}
-          isLast={false}
-          goToNextPage={() => {}}
-          goToPreviousPage={() => {}}
-          totalPages={10}
+          currentPage={currentPage}
+          isFirst={currentPage === 1}
+          isLast={currentPage === totalPages}
+          goToNextPage={handleNextPage}
+          goToPreviousPage={handlePreviousPage}
+          totalPages={totalPages}
         />
 
         <Footer />
@@ -190,7 +209,6 @@ export default function Home({}) {
           />
         )}
       </div>
-      {/* <Carousel items={dummyCharacters.slice(0, 5)} /> */}
     </main>
   );
 }
