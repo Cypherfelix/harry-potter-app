@@ -3,7 +3,7 @@ import Image from "next/image";
 
 const MovieCard: React.FC<{ name: string }> = ({ name }) => {
   return (
-    <div className="relative w-full cursor-pointer">
+    <div className="relative w-full cursor-pointer card-hover-animation ">
       <div className="relative w-full rounded-lg">
         <div
           className={
