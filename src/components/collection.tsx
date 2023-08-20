@@ -13,7 +13,7 @@ const Collection = () => {
       <div className="mx-auto mb-4 flex items-end justify-around sm:mb-6">
         <div className="flex items-end">
           <h2 className="md:heading-lg text-xl font-light capitalize leading-none py-px sm:py-0 text-app-pure-white">
-            Movies Collection
+            Harry Porter Movies
           </h2>
           <p
             className={

@@ -158,7 +158,7 @@ export class Convert {
     result.map((character) => {
       character.image === ""
         ? character.gender === "male"
-          ? (character.image = "/images/no-profile-male.jpg")
+          ? (character.image = "/images/no-profile-picture-man.png")
           : (character.image = "/images/no-profile-female.jpg")
         : (character.image = character.image);
       character.house === ""

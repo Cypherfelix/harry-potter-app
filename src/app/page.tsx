@@ -207,6 +207,23 @@ export default function Home({}) {
 
         {isLoading ? <Loading /> : <Collection />}
 
+        <section className={"mb-6 h-full w-full"}>
+          <div className="mx-auto mb-4 flex items-end justify-around sm:mb-6">
+            <div className="flex items-end">
+              <h2 className="md:heading-lg text-xl font-light capitalize leading-none py-px sm:py-0 text-app-pure-white">
+                Characters
+              </h2>
+              <p
+                className={
+                  "ml-2 rounded-md border-2 py-px px-2 text-[8px] font-medium uppercase tracking-wider text-app-pure-white sm:ml-4 sm:text-[10px]"
+                }
+              >
+                cast
+              </p>
+            </div>
+          </div>
+        </section>
+
         {isLoading ? <Loading /> : <CardList characters={getCharacters()} />}
 
         <Pagination

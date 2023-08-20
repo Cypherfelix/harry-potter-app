@@ -12,6 +12,7 @@ import { API_URL, fetchCharacter, fetchCharacters } from "@/utils/api";
 import CardTheme from "@/utils/cardTheme";
 import useSWR from "swr";
 import Loading from "@/components/loader";
+import Link from "next/link";
 
 const characterDummy: Character = {
   id: "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
@@ -108,9 +109,15 @@ export default function Home(props: Props) {
             <ImageCard src={character.image} title={character.name} />
             <section className="md:w-3/5">
               <div className="mt-6 mb-2 text-center md:mt-0 md:mb-4 md:text-left">
-                <h1 className="mb-1 text-3xl font-light md:mb-3 md:text-5xl">
+                <div className="mb-1 text-3xl font-light md:mb-3 md:text-5xl flex items-center justify-between">
                   {character.name}
-                </h1>
+                  <Link
+                    href={"/"}
+                    className="cursor-pointer text-xs font-medium capitalize tracking-wide text-app-greyish-blue hover:underline mr-4"
+                  >
+                    Back home
+                  </Link>
+                </div>
                 <h2 className="text-xs font-light text-app-placeholder sm:text-sm md:text-lg italic">
                   by <span className="font-medium">{character.actor}</span>
                 </h2>
@@ -143,12 +150,14 @@ export default function Home(props: Props) {
                 </div>
                 <div>
                   <p className="mb-1 text-app-placeholder underline">Year</p>
-                  <p className="text-app-pure-white">{character.yearOfBirth}</p>
+                  <p className="text-app-pure-white">
+                    {character.yearOfBirth || "N/A"}
+                  </p>
                 </div>
                 <div>
                   <p className="mb-1 text-app-placeholder underline">Species</p>
                   <p className="text-app-pure-white capitalize">
-                    {character.species}
+                    {character.species || "N/A"}
                   </p>
                 </div>
               </div>
