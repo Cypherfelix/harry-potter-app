@@ -154,7 +154,7 @@ export default function Home({}) {
       <div
         className="min-h-screen h-full w-full flex flex-col bg-fixed "
         style={{
-          backgroundImage: `url('images/bg2.jpg')`,
+          backgroundImage: `url('/images/bg2.jpg')`,
           objectFit: "cover",
           backgroundPosition: "center",
           backgroundSize: "cover",
