@@ -1,4 +1,4 @@
-import { Convert } from "@/types/character";
+import { Character, Convert } from "@/types/character";
 import axios, { AxiosError } from "axios";
 const API_URL = "https://hp-api.onrender.com/";
 
@@ -10,6 +10,7 @@ export const fetchCharacters = async (args: string) => {
     const response = await fetch(`${API_URL}api/characters`, {
       cache: "force-cache",
     });
+
     return Convert.toCharacter(JSON.stringify(await response.json()));
   } catch (error: Error | AxiosError | any) {
     if (axios.isAxiosError(error)) {
@@ -21,10 +22,16 @@ export const fetchCharacters = async (args: string) => {
   }
 };
 
-export const fetchCharacter = async (id: string) => {
+export const fetchCharacter = async (url: string) => {
   try {
-    const response = await axios.get(`${API_URL}api/characters/${id}`);
-    return Convert.toCharacter(JSON.stringify(response.data));
+    console.log("fetchCharacter url:", url);
+    const response = await fetch(url, {
+      cache: "force-cache",
+    });
+    let char: Character[] = await response.json();
+    char = Convert.toCharacter(JSON.stringify(char));
+    return char[0];
+    // return Convert.toCharacter(JSON.stringify(response.json()));
   } catch (error: Error | AxiosError | any) {
     if (axios.isAxiosError(error)) {
       handleAxiosError(error);

@@ -18,16 +18,26 @@ export default function Home({}) {
   const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
 
+  let { data, error, isLoading } = useSWR(
+    `${API_URL}api/characters`,
+    fetchCharacters
+  );
+
   const handleNextPage = () => {
     setCurrentPage((prev) => (prev < totalPages ? prev + 1 : prev));
+    window.scrollTo(0, 0);
+    isLoading = true;
   };
 
   const handlePreviousPage = () => {
     setCurrentPage((prev) => (prev > 1 ? prev - 1 : prev));
+    window.scrollTo(0, 0);
+    isLoading = true;
   };
 
   const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
@@ -52,14 +62,11 @@ export default function Home({}) {
       startIndex,
       startIndex + ITEMS_PER_PAGE
     );
+    isLoading = false;
     return currentCharacters;
   };
 
-  const { data, error, isLoading } = useSWR(
-    `${API_URL}api/characters`,
-    fetchCharacters
-  );
-
+ 
   useEffect(() => {
     const dummyCharacters: Character[] = [
       {

@@ -69,7 +69,10 @@ export default function Home(props: Props) {
     }
   };
 
-  const { data, error, isLoading } = useSWR(props.params.id, fetchCharacter);
+  const { data, error, isLoading } = useSWR(
+    `${API_URL}api/character/${props.params.id}`,
+    fetchCharacter
+  );
   const {
     data: allCharacters,
     error: charactersError,
@@ -77,8 +80,8 @@ export default function Home(props: Props) {
   } = useSWR(`${API_URL}api/characters`, fetchCharacters);
 
   useEffect(() => {
-    if (data && data.length > 0) {
-      setCharacter(data[0]);
+    if (data) {
+      setCharacter(data);
     } else {
       setCharacter(characterDummy);
     }
