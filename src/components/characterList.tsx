@@ -48,6 +48,7 @@ const MagicalCard: React.FC<{ character: any }> = ({ character }) => {
       break;
   }
 
+
   return (
     <Link
       href={`/character/${character.id}`}

@@ -1,5 +1,6 @@
 import { Character } from "@/types/character";
 import Image from "next/image";
+import { MouseEventHandler } from "react";
 
 interface SearchItemProps {
   searchTerm?: string;
@@ -19,8 +20,15 @@ const SearchItem: React.FC<SearchItemProps> = ({ searchTerm, character }) => {
       return <span dangerouslySetInnerHTML={{ __html: htmlText }} />;
     }
   };
+
+  const handleClick: MouseEventHandler<HTMLLIElement> = () => {
+    window.location.href = `/character/${character!.id}`;
+  };
   return (
-    <li className="cursor-pointer flex gap rounded-lg px-3 py-2 aria-selected:bg-slate-100 bg-slate-700/30 hover:bg-slate-700/50 dark:aria-selected:bg-slate-700/30 transition-colors duration-75 ease-in max-w-[98%]">
+    <li
+      className="cursor-pointer flex gap rounded-lg px-3 py-2 aria-selected:bg-slate-100 bg-slate-700/30 hover:bg-slate-700/50 dark:aria-selected:bg-slate-700/30 transition-colors duration-75 ease-in max-w-[98%]"
+      onClick={handleClick}
+    >
       <div className="relative mt-1 flex h-10 w-10 flex-none items-center justify-center rounded-full shadow-md shadow-zinc-800/5 dark:ring-1 ring-zinc-900/5 border border-zinc-700/50 bg-zinc-800 ring-0 mr-5">
         <Image
           alt=""
