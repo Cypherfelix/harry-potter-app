@@ -1,4 +1,5 @@
 "use client";
+import Footer from "@/components/footer";
 import Header from "@/components/header";
 import { Character } from "@/types/character";
 import { Metadata } from "next";
@@ -45,6 +46,7 @@ export default function Home({}) {
     >
       <Header />
       Hello World
+      <Footer />
     </div>
   );
 }
