@@ -39,12 +39,9 @@ export default function Home({}) {
 
   return (
     <div
-      className="livingImage"
+      className="livingImage font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover pt-8 px-8 h-full min-h-screen"
       style={{
         backgroundImage: "url('https://source.unsplash.com/1L71sPT5XKc')",
-        objectFit: "cover",
-        backgroundPosition: "center",
-        backgroundSize: "cover",
       }}
     >
       <Header />
@@ -119,9 +116,9 @@ export default function Home({}) {
                   : "no-profile-male.jpg"
                 : character.image
             }
-            className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block h-[500px]"
+            className="rounded-none lg:rounded-lg shadow-2xl hidden lg:block"
             alt="profile"
-            height={500}
+            height={538}
             width={358}
           />
         </div>

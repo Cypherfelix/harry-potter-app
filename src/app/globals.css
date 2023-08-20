@@ -43,6 +43,5 @@ body {
 }
 
 .livingImage {
-  @apply font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover pt-8 px-8 h-full min-h-screen w-full flex flex-col bg-fixed;
   animation: movingEffect 4s infinite;
 }
