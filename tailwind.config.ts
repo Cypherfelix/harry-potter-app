@@ -26,6 +26,14 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      fontSize: {
+        "app-heading-lg": "2rem",
+        "app-heading-md": "1.5rem",
+        "app-heading-sm": "1.5rem",
+        "app-heading-xs": "1.125rem",
+        "app-body-md": "0.9375rem",
+        "app-body-sm": "0.8125rem",
+      },
       keyframes: {
         wiggle: {
           "0%, 100%": { transform: "skewY(0deg)" },

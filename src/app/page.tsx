@@ -1,6 +1,7 @@
 "use client";
 import Carousel from "@/components/carousel";
 import CardList from "@/components/characterList";
+import Collection from "@/components/collection";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
 import SearchModal from "@/components/searchModal";
@@ -150,7 +151,8 @@ export default function Home({}) {
   }, []);
 
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-0">
+    <main className="mx-0 flex flex-col py-6 px-4 md:m-6 md:px-0 md:pt-0 lg:m-auto lg:min-w-[800px] lg:grow">
+      {/* min-h-screen items-center justify-between p-0 */}
       <div
         className="min-h-screen h-full w-full flex flex-col bg-fixed "
         style={{
@@ -161,6 +163,8 @@ export default function Home({}) {
         }}
       >
         <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
+
+        <Collection />
 
         <CardList characters={Array.from(characters).slice(0, 100)} />
 

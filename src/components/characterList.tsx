@@ -65,7 +65,7 @@ const MagicalCard: React.FC<{ character: any }> = ({ character }) => {
           objectFit="cover"
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(
-            shimmer(240, 140)
+            shimmer(384, 288)
           )}`}
           unoptimized
         />

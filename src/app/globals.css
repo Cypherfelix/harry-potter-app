@@ -24,10 +24,6 @@
     @apply text-app-heading-xs font-medium;
   }
 
-  .section-title {
-    @apply md: heading-lg text-xl font-light capitalize leading-none;
-  }
-
   .icon-nav {
     @apply fill-app-greyish-blue transition duration-150 ease-linear hover:fill-app-red md:h-5 md:w-5;
   }
