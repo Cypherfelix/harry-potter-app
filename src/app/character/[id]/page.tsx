@@ -5,7 +5,9 @@ import { Character } from "@/types/character";
 import CardTheme from "@/utils/cardTheme";
 import { Metadata } from "next";
 import Image from "next/image";
-
+import { useState, ChangeEvent, useEffect } from "react";
+import SearchModal from "@/components/searchModal";
+import { fetchCharacters } from "@/utils/api";
 
 const character: Character = {
   id: "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
@@ -35,7 +37,33 @@ export default function Home({}) {
     character.house
   );
 
-  console.log(CardTheme(character.house));
+  const [characters, setCharacters] = useState<Character[]>([]);
+  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [toggleSearch, setToggleSearch] = useState(false);
+
+  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSearchTerm(value);
+    if (value.trim() === "") {
+      setFilteredCharacters([]);
+    } else {
+      setFilteredCharacters(
+        characters.filter(
+          (character) =>
+            character.name.toLowerCase().includes(value.toLowerCase()) ||
+            character.house.toLowerCase().includes(value.toLowerCase())
+        )
+      );
+    }
+  };
+
+  useEffect(() => {
+    fetchCharacters().then((r) => {
+      console.log(Array.from(r).slice(0, 10));
+      setCharacters(r);
+    });
+  }, []);
 
   return (
     <div
@@ -44,7 +72,7 @@ export default function Home({}) {
         backgroundImage: "url('https://source.unsplash.com/1L71sPT5XKc')",
       }}
     >
-      <Header />
+      <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
       <div className="max-w-4xl flex items-center h-auto lg:h-screen flex-wrap mx-auto my-0 lg:my-0">
         <div className="w-full lg:w-3/5 rounded-lg lg:rounded-l-lg lg:rounded-r-none shadow-2xl bg-slate-400 opacity-75 my-12 mx-6 lg:mx-0 relative">
           <div className="absolute inset-0 z-10 flex items-center justify-center">
@@ -123,6 +151,16 @@ export default function Home({}) {
           />
         </div>
       </div>
+
+      {toggleSearch && (
+        <SearchModal
+          setToggleSearch={setToggleSearch}
+          filteredCharacters={filteredCharacters}
+          handleSearch={handleSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
+      )}
       <Footer />
     </div>
   );
