@@ -8,7 +8,7 @@ import SearchModal from "@/components/searchModal";
 import CorrectIcon from "@/components/icons/correct";
 import FalseIcon from "@/components/icons/falseIcon";
 import ImageCard from "@/components/character/imageCard";
-import { fetchCharacter, fetchCharacters } from "@/utils/api";
+import { API_URL, fetchCharacter, fetchCharacters } from "@/utils/api";
 import CardTheme from "@/utils/cardTheme";
 import useSWR from "swr";
 import Loading from "@/components/loader";
@@ -70,6 +70,11 @@ export default function Home(props: Props) {
   };
 
   const { data, error, isLoading } = useSWR(props.params.id, fetchCharacter);
+  const {
+    data: allCharacters,
+    error: charactersError,
+    isLoading: charactersIsLoading,
+  } = useSWR(`${API_URL}api/characters`, fetchCharacters);
 
   useEffect(() => {
     if (data && data.length > 0) {
@@ -78,6 +83,12 @@ export default function Home(props: Props) {
       setCharacter(characterDummy);
     }
   }, [data]);
+
+  useEffect(() => {
+    if (allCharacters) {
+      setCharacters(allCharacters);
+    }
+  }, [allCharacters]);
 
   return (
     <div className="lg:flex min-h-screen w-full h-full bg-transparent">
