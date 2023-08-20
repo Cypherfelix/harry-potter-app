@@ -8,8 +8,13 @@ import HeaderThemeBar from "./header/headerThemeBar";
 interface Props {
   setToggleSearch?: React.Dispatch<React.SetStateAction<boolean>>;
   toggleSearch?: boolean;
+  scrollToggle?: boolean;
 }
-export const Header: React.FC<Props> = ({ setToggleSearch, toggleSearch }) => {
+export const Header: React.FC<Props> = ({
+  setToggleSearch,
+  toggleSearch,
+  scrollToggle = true,
+}) => {
   const [toggleTheme, setToggleTheme] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 
@@ -31,8 +36,10 @@ export const Header: React.FC<Props> = ({ setToggleSearch, toggleSearch }) => {
   return (
     <header
       className={`sticky top-0 z-50 flex flex-none flex-wrap items-center justify-between ${
-        isScrolled && " backdrop-blur-sm bg-black/30"
-      } px-4 py-5 shadow-md shadow-slate-900/5 transition duration-500 dark:shadow-none sm:px-6 lg:px-8 dark:bg-transparent w-full`}
+        scrollToggle &&
+        isScrolled &&
+        " shadow-md shadow-slate-900/5 backdrop-blur-sm bg-black/30"
+      } px-4 py-5  transition duration-500 dark:shadow-none sm:px-6 lg:px-8 dark:bg-transparent w-full`}
     >
       <HeaderLogo />
       <HeaderSearch

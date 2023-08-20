@@ -53,7 +53,7 @@ const MagicalCard: React.FC<{ character: any }> = ({ character }) => {
     <Link
       href={`/character/${character.id}`}
       aria-label={character.name}
-      className={`group ${cardTheme} bg-cover justify-self-stretch flex flex-col justify-end rounded h-96 sm:w-72 transform transition-all ease-in-out hover:scale-105 duration-300 cursor-pointer ${borderColor} ${hoverBorderColor} relative overflow-hidden`}
+      className={`${cardTheme} !z-5 relative rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 w-full !p-4 3xl:p-![18px]  bg-cover justify-self-stretch flex flex-col justify-end h-96 sm:w-72 transform transition-all ease-in-out hover:scale-105 duration-300 cursor-pointer ${borderColor} ${hoverBorderColor} relative overflow-hidden`}
       style={{ backgroundImage: `url('${character.image}')` }}
     >
       <div className="absolute inset-0 z-10 flex items-center justify-center">
