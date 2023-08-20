@@ -30,9 +30,11 @@ export default function Pagination({
         <TiArrowLeftThick className="mr-2" />
         <span>Prev</span>
       </div>
-      <p className="border-t-2 border-b-2 bg-app-pure-white py-2 px-4 text-app-dark-blue">
-        Page {currentPage} of {totalPages}
-      </p>
+      <div className="h-full bg-app-pure-white">
+        <p className="border-t-2 border-b-2 bg-app-pure-white py-2 px-4 text-app-dark-blue ">
+          Page {currentPage} of {totalPages}
+        </p>
+      </div>
       <div
         onClick={goToNextPage}
         className={
