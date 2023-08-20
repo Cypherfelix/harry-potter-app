@@ -4,6 +4,7 @@ import CardList from "@/components/characterList";
 import Collection from "@/components/collection";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
+import Loading from "@/components/loader";
 import Pagination from "@/components/pagination";
 import SearchModal from "@/components/searchModal";
 import { Character } from "@/types/character";
@@ -129,6 +130,7 @@ export default function Home({}) {
   const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [toggleSearch, setToggleSearch] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
@@ -184,9 +186,9 @@ export default function Home({}) {
       >
         <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
 
-        <Collection />
+        {isLoading ? <Loading /> : <Collection />}
 
-        <CardList characters={getCharacters()} />
+        {isLoading ? <Loading /> : <CardList characters={getCharacters()} />}
 
         <Pagination
           currentPage={currentPage}
