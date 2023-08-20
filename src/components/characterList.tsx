@@ -1,4 +1,5 @@
 import { Character } from "@/types/character";
+import { shimmer, toBase64 } from "@/utils/tools";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -48,22 +49,35 @@ const MagicalCard: React.FC<{ character: any }> = ({ character }) => {
       break;
   }
 
-
   return (
     <Link
       href={`/character/${character.id}`}
       aria-label={character.name}
-      className={`${cardTheme} !z-5 relative rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 w-full !p-4 3xl:p-![18px]  bg-cover justify-self-stretch flex flex-col justify-end h-96 sm:w-72 transform transition-all ease-in-out hover:scale-105 duration-300 cursor-pointer ${borderColor} ${hoverBorderColor} relative overflow-hidden`}
-      style={{ backgroundImage: `url('${character.image}')` }}
+      className={`card-hover-animation !z-5 relative rounded-[20px] max-w-[300px] bg-white bg-clip-border shadow-3xl shadow-shadow-500 w-full !p-4 3xl:p-![18px]  bg-cover justify-self-stretch flex flex-col justify-end h-96 sm:w-72 transform transition-all ease-in-out hover:scale-105 duration-300 cursor-pointer overflow-hidden`}
+      style={{}}
     >
-      <div className="absolute inset-0 z-10 flex items-center justify-center">
+      <div className="absolute inset-0 z-0">
+        <Image
+          className="rounded-lg"
+          src={character.image}
+          alt={character.name}
+          layout="fill"
+          objectFit="cover"
+          placeholder="blur"
+          blurDataURL={`data:image/svg+xml;base64,${toBase64(
+            shimmer(240, 140)
+          )}`}
+          unoptimized
+        />
+      </div>
+      {/* <div className="absolute inset-0 z-10 flex items-center justify-center">
         <div
           className={`border-t-2 border-b-2 ${borderColor} w-full absolute top-0`}
         ></div>
         <div
           className={`border-l-2 border-r-2 ${borderColor} h-full absolute left-0`}
         ></div>
-      </div>
+      </div> */}
 
       <div className="relative z-20 w-full flex bg-black bg-opacity-40 backdrop-blur-md p-4 justify-between items-center">
         <div className="flex flex-col space-y-1">

@@ -89,8 +89,8 @@ export default function Home(props: Props) {
   }, []);
 
   return (
-    <div className="lg:flex min-h-screen w-full h-full bg-slate-700">
-      <main className="mx-0 flex flex-col py-6 px-4 md:m-6 md:px-0 md:pt-0 lg:ml-32 lg:min-w-[800px] lg:grow">
+    <div className="lg:flex min-h-screen w-full h-full bg-transparent">
+      <main className="mx-0 flex flex-col py-6 px-4 md:m-6 md:px-0 md:pt-0 lg:ml-32 lg:min-w-[800px] lg:grow text-app-pure-white">
         <Header
           scrollToggle={false}
           setToggleSearch={setToggleSearch}
