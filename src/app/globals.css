@@ -24,3 +24,25 @@ body {
     )
     rgb(var(--background-start-rgb));
 }
+
+@keyframes movingEffect {
+  0% {
+    background-size: 100% 100%;
+    background-position: center;
+  }
+
+  50% {
+    background-size: 110% 110%;
+    background-position: 30% 50%;
+  }
+
+  100% {
+    background-size: 100% 100%;
+    background-position: center;
+  }
+}
+
+.livingImage {
+  @apply font-sans antialiased text-gray-900 leading-normal tracking-wider bg-cover pt-8 px-8 h-full min-h-screen;
+  animation: movingEffect 4s infinite;
+}
