@@ -4,6 +4,7 @@ import CardList from "@/components/characterList";
 import Collection from "@/components/collection";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
+import Pagination from "@/components/pagination";
 import SearchModal from "@/components/searchModal";
 import { Character } from "@/types/character";
 import { fetchCharacters } from "@/utils/api";
@@ -167,6 +168,15 @@ export default function Home({}) {
         <Collection />
 
         <CardList characters={Array.from(characters).slice(0, 100)} />
+
+        <Pagination
+          currentPage={1}
+          isFirst={true}
+          isLast={false}
+          goToNextPage={() => {}}
+          goToPreviousPage={() => {}}
+          totalPages={10}
+        />
 
         <Footer />
 
