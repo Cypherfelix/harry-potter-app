@@ -1,6 +1,5 @@
 "use client";
 import useSWR from "swr";
-import CardList from "@/components/characterList";
 import Collection from "@/components/collection";
 import Footer from "@/components/footer";
 import { Header } from "@/components/header";
@@ -10,6 +9,7 @@ import SearchModal from "@/components/searchModal";
 import { Character } from "@/types/character";
 import { ChangeEvent, useEffect, useState } from "react";
 import { API_URL, fetchCharacters } from "@/utils/api";
+import CardList from "@/components/characterList";
 
 export default function Home({}) {
   const ITEMS_PER_PAGE = 12;

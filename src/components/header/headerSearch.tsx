@@ -15,7 +15,7 @@ const HeaderSearch: React.FC<{
       >
         <SearchIcon className="fill-white" />
         <span className="sr-only md:not-sr-only md:ml-2 text-white md:dark:text-slate-400">
-          Search docs
+          Search characters
         </span>
         <kbd className="ml-auto hidden font-medium text-slate-400 dark:text-slate-500 md:block">
           <kbd className="font-sans">Ctrl </kbd>

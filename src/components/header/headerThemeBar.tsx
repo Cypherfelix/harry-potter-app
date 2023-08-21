@@ -7,7 +7,7 @@ const HeaderThemeBar: React.FC<{
   toggleTheme: boolean;
 }> = ({ setToggleTheme, toggleTheme }) => {
   return (
-    <div className="relative z-10">
+    <div aria-label="themeBtn" className="relative z-10">
       <label className="sr-only">Theme</label>
       <button
         className="flex h-6 w-6 items-center justify-center rounded-lg shadow-md shadow-black/5 ring-1 ring-black/5 dark:bg-slate-700 dark:ring-inset dark:ring-white/5"

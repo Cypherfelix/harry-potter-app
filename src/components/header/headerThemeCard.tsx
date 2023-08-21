@@ -8,6 +8,7 @@ const ThemeCard: FC<{
 }> = ({ tittle, Icon, onClick, enabled }) => {
   return (
     <li
+      aria-label={tittle + "ThemeCard"}
       className={`flex cursor-pointer select-none items-center rounded-[0.625rem] p-1 dark:text-slate-700  hover:text-sky-500 ${
         enabled ? "text-sky-500" : "text-slate-400"
       }`}
