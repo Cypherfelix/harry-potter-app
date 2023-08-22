@@ -12,15 +12,16 @@ import { API_URL, fetchCharacters } from "@/utils/api";
 import CardList from "@/components/characterList";
 import { useDispatch, useSelector } from "react-redux";
 import searchSlice, { setSearchToggle } from "@/store/slice/searchSlice";
-import { RootState } from "@/store";
+import { RootState, useAppDispatch, useAppSelector } from "@/store";
+import charactersSlice, { setCharacters } from "@/store/slice/charactersSlice";
 
 export default function Home({}) {
-
   const ITEMS_PER_PAGE = 12;
+  const characters = useAppSelector(
+    (selector) => selector.characters.characters
+  );
+  const dispatch = useAppDispatch();
 
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
 
@@ -45,22 +46,6 @@ export default function Home({}) {
       behavior: "smooth",
     });
     isLoading = true;
-  };
-
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    if (value.trim() === "") {
-      setFilteredCharacters([]);
-    } else {
-      setFilteredCharacters(
-        characters.filter(
-          (character) =>
-            character.name.toLowerCase().includes(value.toLowerCase()) ||
-            character.house.toLowerCase().includes(value.toLowerCase())
-        )
-      );
-    }
   };
 
   const getCharacters = () => {
@@ -187,11 +172,9 @@ export default function Home({}) {
       },
     ];
     if (data) {
-      setCharacters(data);
-    } else {
-      setCharacters(dummyCharacters);
+      dispatch(setCharacters(data));
     }
-  }, [data]);
+  }, [data, dispatch]);
 
   return (
     <main className="mx-0 flex flex-col py-6 px-4 md:m-6 md:px-0 md:pt-0 lg:m-auto lg:min-w-[800px] lg:grow">
@@ -237,12 +220,7 @@ export default function Home({}) {
 
         <Footer />
 
-        <SearchModal
-          filteredCharacters={filteredCharacters}
-          handleSearch={handleSearch}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        <SearchModal />
       </div>
     </main>
   );

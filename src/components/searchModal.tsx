@@ -1,40 +1,32 @@
-import { useEffect, useRef } from "react";
+import { ChangeEvent, useEffect, useRef } from "react";
 import SearchIcon from "./icons/searchIcon";
 import SearchResults from "./search/searchResults";
-import { Character } from "@/types/character";
 import SearchNoResults from "./search/searchNoResult";
 import SearchInfo from "./search/searchInfo";
-import { RootState } from "@/store";
-import { setSearchToggle } from "@/store/slice/searchSlice";
-import { useSelector, useDispatch } from "react-redux";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setSearchToggle, setSearchValue } from "@/store/slice/searchSlice";
+import { filterCharacters } from "@/store/slice/charactersSlice";
 
-interface SearchModalProps {
-  setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
-  handleSearch?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  searchTerm?: string;
-  filteredCharacters?: Character[];
-}
-const SearchModal: React.FC<SearchModalProps> = ({
-  filteredCharacters,
-  handleSearch,
-  searchTerm,
-  setSearchTerm,
-}) => {
+const SearchModal: React.FC = ({}) => {
   const searchContainerRef = useRef<HTMLDivElement>(null);
-  const {
-    search: { searchToggle, value },
-  } = useSelector((selector: RootState) => selector);
 
-  const dispatch = useDispatch();
+  const value = useAppSelector((selector) => selector.search.value);
+  const searchToggle = useAppSelector(
+    (selector) => selector.search.searchToggle
+  );
+  const filteredCharacters = useAppSelector(
+    (selector) => selector.characters.filteredCharacters
+  );
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    const handleSearchToggle = () => dispatch(setSearchToggle(false));
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         searchContainerRef.current &&
         !searchContainerRef.current.contains(event.target as Node)
       ) {
-        handleSearchToggle();
+        dispatch(setSearchToggle(false));
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
@@ -42,6 +34,12 @@ const SearchModal: React.FC<SearchModalProps> = ({
       document.removeEventListener("mousedown", handleOutsideClick);
     };
   }, [searchContainerRef, dispatch]);
+
+  const handleSearch = (event: ChangeEvent<HTMLInputElement>) => {
+    const searchTerm = event.target.value.toLowerCase();
+    dispatch(filterCharacters(searchTerm));
+    dispatch(setSearchValue(searchTerm));
+  };
 
   return (
     searchToggle && (
@@ -61,17 +59,14 @@ const SearchModal: React.FC<SearchModalProps> = ({
                     className="flex-auto appearance-none bg-transparent pl-12 dark:text-slate-900 outline-none placeholder:text-slate-400 focus:w-full focus:flex-none text-white sm:text-sm pr-4"
                     placeholder="Find something..."
                     type="search"
-                    value={searchTerm!}
+                    value={value!}
                     onChange={handleSearch!}
                   />
                 </div>
                 <div className="border-t border-slate-200 dark:bg-white px-2 py-3 empty:hidden border-slate-400/10 bg-slate-800">
-                  {searchTerm!.length > 0 ? (
+                  {value!.length > 0 ? (
                     filteredCharacters!.length > 0 ? (
-                      <SearchResults
-                        filteredCharacters={filteredCharacters}
-                        searchTerm={searchTerm}
-                      />
+                      <SearchResults />
                     ) : (
                       <SearchNoResults />
                     )
