@@ -36,5 +36,8 @@ describe("Header Test", () => {
     cy.get("#themeDropDown").should("not.exist");
   });
 
-  // Add more tests as needed for other elements within the header
+  it("Tests the search bar", () => { 
+    cy.get(".-my-5 > .group").click();
+    cy.get(".-my-5 > .group").should("not.be.visible");
+  })
 });
