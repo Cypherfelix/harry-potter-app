@@ -12,6 +12,8 @@ import { API_URL, fetchCharacter, fetchCharacters } from "@/utils/api";
 import useSWR from "swr";
 import Loading from "@/components/loader";
 import Link from "next/link";
+import { useAppDispatch, useAppSelector } from "@/store";
+import { setCharacters } from "@/store/slice/charactersSlice";
 
 const characterDummy: Character = {
   id: "9e3f7ce4-b9a7-4244-b709-dae5c1f1d4a8",
@@ -41,42 +43,22 @@ interface Props {
   searchParams: URLSearchParams;
 }
 export default function Home(props: Props) {
-  const [characters, setCharacters] = useState<Character[]>([]);
-  const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
-  const [searchTerm, setSearchTerm] = useState("");
   const [character, setCharacter] = useState<Character>(characterDummy);
-  const [theme, setTheme] = useState({
-    borderColor: "border-gray-400",
-    hoverBorderColor: "hover:border-gray-500",
-    hoverTextColor: "hover:text-gray-500",
-    cardTheme: "bg-gray-400",
-  });
+  const characters = useAppSelector(
+    (selector) => selector.characters.characters
+  );
 
-  const handleSearch = (e: ChangeEvent<HTMLInputElement>) => {
-    const value = e.target.value;
-    setSearchTerm(value);
-    if (value.trim() === "") {
-      setFilteredCharacters([]);
-    } else {
-      setFilteredCharacters(
-        characters.filter(
-          (character) =>
-            character.name.toLowerCase().includes(value.toLowerCase()) ||
-            character.house.toLowerCase().includes(value.toLowerCase())
-        )
-      );
-    }
-  };
+  const dispatch = useAppDispatch();
 
-  const { data, error, isLoading } = useSWR(
+  const { data, isLoading } = useSWR(
     `${API_URL}api/character/${props.params.id}`,
     fetchCharacter
   );
-  const {
-    data: allCharacters,
-    error: charactersError,
-    isLoading: charactersIsLoading,
-  } = useSWR(`${API_URL}api/characters`, fetchCharacters);
+
+  const { data: allCharacters } = useSWR(
+    `${API_URL}api/characters`,
+    fetchCharacters
+  );
 
   useEffect(() => {
     if (data) {
@@ -88,9 +70,9 @@ export default function Home(props: Props) {
 
   useEffect(() => {
     if (allCharacters) {
-      setCharacters(allCharacters);
+      dispatch(setCharacters(allCharacters));
     }
-  }, [allCharacters]);
+  }, [allCharacters, dispatch]);
 
   return (
     <div className="lg:flex min-h-screen w-full h-full bg-transparent">
@@ -237,12 +219,7 @@ export default function Home(props: Props) {
           </section>
         )}
         <Footer />
-        <SearchModal
-          filteredCharacters={filteredCharacters}
-          handleSearch={handleSearch}
-          searchTerm={searchTerm}
-          setSearchTerm={setSearchTerm}
-        />
+        <SearchModal />
       </main>
     </div>
   );

@@ -1,19 +1,18 @@
-import { Character } from "@/types/character";
 import SearchItem from "./searchItem";
+import { useAppSelector } from "@/store";
 
-interface SearchResultsProps { 
-  filteredCharacters?: Character[];
-  searchTerm?: string;
-}
-
-const SearchResults: React.FC<SearchResultsProps> = ({filteredCharacters, searchTerm}) => {
+const SearchResults: React.FC = () => {
+  const {
+    search: { value },
+    characters: { filteredCharacters },
+  } = useAppSelector((selector) => selector);
   return (
     <ul className="space-y-4 max-h-96 overflow-y-auto scrollbar ">
       {filteredCharacters!.map((character) => (
         <SearchItem
           key={character.id}
           character={character}
-          searchTerm={searchTerm}
+          searchTerm={value}
         />
       ))}
     </ul>
