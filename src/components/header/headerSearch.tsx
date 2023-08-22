@@ -1,21 +1,10 @@
-import { RootState } from "@/store";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import SearchIcon from "../icons/searchIcon";
 import { setSearchToggle } from "@/store/slice/searchSlice";
 
-const HeaderSearch: React.FC<{
-  setToggleSearch: React.Dispatch<React.SetStateAction<boolean>>;
-  toggleSearch: boolean;
-}> = ({ setToggleSearch, toggleSearch }) => {
-  const searchToggle = useSelector(
-    (selector: RootState) => selector.search.searchToggle
-  );
-
+const HeaderSearch: React.FC<{}> = () => {
   const dispatch = useDispatch();
-
   const handleSearch = () => dispatch(setSearchToggle(true));
-
-
   return (
     <div className="-my-5 mr-6 sm:mr-8 md:mr-0">
       <button

@@ -9,7 +9,6 @@ import CorrectIcon from "@/components/icons/correct";
 import FalseIcon from "@/components/icons/falseIcon";
 import ImageCard from "@/components/character/imageCard";
 import { API_URL, fetchCharacter, fetchCharacters } from "@/utils/api";
-import CardTheme from "@/utils/cardTheme";
 import useSWR from "swr";
 import Loading from "@/components/loader";
 import Link from "next/link";
@@ -45,7 +44,6 @@ export default function Home(props: Props) {
   const [characters, setCharacters] = useState<Character[]>([]);
   const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [toggleSearch, setToggleSearch] = useState(false);
   const [character, setCharacter] = useState<Character>(characterDummy);
   const [theme, setTheme] = useState({
     borderColor: "border-gray-400",
@@ -97,11 +95,7 @@ export default function Home(props: Props) {
   return (
     <div className="lg:flex min-h-screen w-full h-full bg-transparent">
       <main className="mx-0 flex flex-col py-6 px-4 md:m-6 md:px-0 md:pt-0 lg:ml-32 lg:min-w-[800px] lg:grow text-app-pure-white">
-        <Header
-          scrollToggle={false}
-          setToggleSearch={setToggleSearch}
-          toggleSearch={toggleSearch}
-        />
+        <Header scrollToggle={false} />
         {isLoading ? (
           <Loading />
         ) : (
@@ -243,15 +237,12 @@ export default function Home(props: Props) {
           </section>
         )}
         <Footer />
-        {toggleSearch && (
-          <SearchModal
-            setToggleSearch={setToggleSearch}
-            filteredCharacters={filteredCharacters}
-            handleSearch={handleSearch}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-          />
-        )}
+        <SearchModal
+          filteredCharacters={filteredCharacters}
+          handleSearch={handleSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </main>
     </div>
   );
