@@ -11,12 +11,10 @@ const MovieCard: React.FC<{ name: string }> = ({ name }) => {
           }
         >
           <Image
-            className="rounded-lg"
+            className="rounded-lg object-cover object-center"
             src={name}
             alt={name}
-            layout="fill"
-            objectFit="cover"
-            objectPosition="center"
+            fill={true}
             placeholder="blur"
             blurDataURL={`data:image/svg+xml;base64,${toBase64(
               shimmer(240, 140)

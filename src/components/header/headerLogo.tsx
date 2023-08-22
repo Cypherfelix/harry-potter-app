@@ -16,7 +16,7 @@ const HeaderLogo: React.FC = () => {
           alt="logo"
           height={20}
           width={200}
-          className="max-h-16"
+          className="max-h-16 h-auto w-auto"
         />
       </Link>
     </div>

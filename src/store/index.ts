@@ -9,6 +9,11 @@ export const store = configureStore({
     search: searchReducer,
     characters: charactersReducer,
   },
+  middleware(getDefaultMiddleware) {
+    return getDefaultMiddleware({
+      serializableCheck: false,
+    });
+  },
 });
 
 export type RootState = ReturnType<typeof store.getState>;

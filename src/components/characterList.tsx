@@ -58,11 +58,10 @@ const MagicalCard: React.FC<{ character: any }> = ({ character }) => {
     >
       <div className="absolute inset-0 z-0">
         <Image
-          className="rounded-lg"
+          className="rounded-lg object-cover"
           src={character.image}
           alt={character.name}
-          layout="fill"
-          objectFit="cover"
+          fill={true}
           placeholder="blur"
           blurDataURL={`data:image/svg+xml;base64,${toBase64(
             shimmer(384, 288)
@@ -70,14 +69,6 @@ const MagicalCard: React.FC<{ character: any }> = ({ character }) => {
           unoptimized
         />
       </div>
-      {/* <div className="absolute inset-0 z-10 flex items-center justify-center">
-        <div
-          className={`border-t-2 border-b-2 ${borderColor} w-full absolute top-0`}
-        ></div>
-        <div
-          className={`border-l-2 border-r-2 ${borderColor} h-full absolute left-0`}
-        ></div>
-      </div> */}
 
       <div className="relative z-20 w-full flex bg-black bg-opacity-40 backdrop-blur-md p-4 justify-between items-center">
         <div className="flex flex-col space-y-1">
