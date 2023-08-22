@@ -4,34 +4,46 @@ import SearchResults from "./search/searchResults";
 import { Character } from "@/types/character";
 import SearchNoResults from "./search/searchNoResult";
 import SearchInfo from "./search/searchInfo";
+import { RootState } from "@/store";
+import { setSearchToggle } from "@/store/slice/searchSlice";
+import { useSelector, useDispatch } from "react-redux";
 
 interface SearchModalProps {
-  setToggleSearch?: React.Dispatch<React.SetStateAction<boolean>>;
   setSearchTerm?: React.Dispatch<React.SetStateAction<string>>;
   handleSearch?: (e: React.ChangeEvent<HTMLInputElement>) => void;
   searchTerm?: string;
   filteredCharacters?: Character[];
-
 }
-const SearchModal: React.FC<SearchModalProps> = ({ setToggleSearch, filteredCharacters, handleSearch, searchTerm, setSearchTerm }) => {
+const SearchModal: React.FC<SearchModalProps> = ({
+  filteredCharacters,
+  handleSearch,
+  searchTerm,
+  setSearchTerm,
+}) => {
   const searchContainerRef = useRef<HTMLDivElement>(null);
+  const searchToggle = useSelector(
+    (selector: RootState) => selector.search.searchToggle
+  );
+
+  const dispatch = useDispatch();
 
   useEffect(() => {
+    const handleSearchToogle = () => dispatch(setSearchToggle(false));
     const handleOutsideClick = (event: MouseEvent) => {
       if (
         searchContainerRef.current &&
         !searchContainerRef.current.contains(event.target as Node)
       ) {
-        setToggleSearch!(false);
+        handleSearchToogle();
       }
     };
     document.addEventListener("mousedown", handleOutsideClick);
     return () => {
       document.removeEventListener("mousedown", handleOutsideClick);
     };
-  }, [setToggleSearch, searchContainerRef]);
+  }, [searchContainerRef, dispatch]);
 
-  return (
+  return searchToggle && (
     <div className="fixed inset-0 z-50">
       <div className="fixed inset-0 bg-slate-900/50 backdrop-blur"></div>
       <div className="fixed inset-0 overflow-y-auto px-4 py-4 sm:px-6 sm:py-20 md:py-32 lg:px-8 lg:py-[15vh]">

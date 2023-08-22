@@ -4,6 +4,8 @@ import GithubIcon from "./icons/githubIcon";
 import HeaderLogo from "./header/headerLogo";
 import HeaderSearch from "./header/headerSearch";
 import HeaderThemeBar from "./header/headerThemeBar";
+import { RootState } from "@/store";
+import { useSelector } from "react-redux";
 
 interface Props {
   setToggleSearch?: React.Dispatch<React.SetStateAction<boolean>>;
@@ -15,6 +17,10 @@ export const Header: React.FC<Props> = ({
   toggleSearch,
   scrollToggle = true,
 }) => {
+
+
+  
+
   const [toggleTheme, setToggleTheme] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
 

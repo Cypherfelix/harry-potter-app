@@ -7,19 +7,20 @@ import Loading from "@/components/loader";
 import Pagination from "@/components/pagination";
 import SearchModal from "@/components/searchModal";
 import { Character } from "@/types/character";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, MouseEventHandler, useEffect, useState } from "react";
 import { API_URL, fetchCharacters } from "@/utils/api";
 import CardList from "@/components/characterList";
+import { useDispatch, useSelector } from "react-redux";
+import searchSlice, { setSearchToggle } from "@/store/slice/searchSlice";
+import { RootState } from "@/store";
 
 export default function Home({}) {
+
   const ITEMS_PER_PAGE = 12;
 
   const [characters, setCharacters] = useState<Character[]>([]);
   const [filteredCharacters, setFilteredCharacters] = useState<Character[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [toggleSearch, setToggleSearch] = useState(false);
-  const [loading, setLoading] = useState(false);
-
   const [currentPage, setCurrentPage] = useState(1);
   const totalPages = Math.ceil(characters.length / ITEMS_PER_PAGE);
 
@@ -72,7 +73,6 @@ export default function Home({}) {
     return currentCharacters;
   };
 
- 
   useEffect(() => {
     const dummyCharacters: Character[] = [
       {
@@ -203,13 +203,13 @@ export default function Home({}) {
           backgroundSize: "cover",
         }}
       >
-        <Header setToggleSearch={setToggleSearch} toggleSearch={toggleSearch} />
+        <Header />
 
         {isLoading ? <Loading /> : <Collection />}
 
         <section className={"mb-6 h-full w-full"}>
           <div className="mx-auto mb-4 flex items-end justify-around sm:mb-6">
-            <div className="flex items-end">
+            <div className="flex items-end cursor-pointer">
               <h2 className="md:heading-lg text-xl font-light capitalize leading-none py-px sm:py-0 text-app-pure-white">
                 Characters
               </h2>
@@ -237,15 +237,12 @@ export default function Home({}) {
 
         <Footer />
 
-        {toggleSearch && (
-          <SearchModal
-            setToggleSearch={setToggleSearch}
-            filteredCharacters={filteredCharacters}
-            handleSearch={handleSearch}
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-          />
-        )}
+        <SearchModal
+          filteredCharacters={filteredCharacters}
+          handleSearch={handleSearch}
+          searchTerm={searchTerm}
+          setSearchTerm={setSearchTerm}
+        />
       </div>
     </main>
   );
